@@ -3,12 +3,13 @@
  */
 package com.obcbo.cfbest;
 
+import java.net.InetSocketAddress;
 import java.util.List;
 
 public class App {
     public static void main(String[] args) {
-        for (List<String> n : GetIP.get()) {
-        System.out.println(n);
-        }
+        List<List<InetSocketAddress>> list = GetIP.get();
+
+        System.out.println(Speed.getFastest(list.get(0)));
     }
 }

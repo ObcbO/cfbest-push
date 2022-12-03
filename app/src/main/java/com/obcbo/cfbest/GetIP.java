@@ -4,21 +4,19 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.URI;
 
 public class GetIP {
     static String[] ipv4 = { "https://www.cloudflare.com/ips-v4" };
     static String[] ipv6 = { "https://www.cloudflare.com/ips-v6" };
 
-    public static Set<List<String>> get() {
-        Set<List<String>> ips = new HashSet<>(1);
-        ips.add(formalV4(download(ipv4)));
-        ips.add(formalV6(download(ipv6)));
+    public static List<List<InetSocketAddress>> get() {
+        List<List<InetSocketAddress>> ips = new ArrayList<>(1);
+        ips.add(formal(download(ipv4)));
+        ips.add(formal(download(ipv6)));
         return ips;
     }
 
@@ -57,15 +55,12 @@ public class GetIP {
      * @param text
      * @return
      */
-    private static List<String> formalV4(String text) {
-        return Arrays.asList(text.replace("/", ":").split("\n"));
-    }
-    private static List<String> formalV6(String text) {
+    private static List<InetSocketAddress> formal(String text) {
         String[] line = text.split("\n");// 分割每一行
-        List<String> list = new ArrayList<>();
+        List<InetSocketAddress> list = new ArrayList<>();
         for (String n : line) {
             String[] split = n.split("/");
-            list.add("[" + split[0] + "]:" + split[1]);
+            list.add(new InetSocketAddress(split[0], Integer.parseInt(split[1])));
         }
         return list;
     }
