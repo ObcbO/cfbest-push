@@ -4,11 +4,9 @@
 package com.obcbo.cfbest;
 
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
-
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        for (String n : GetIP.get()) {
+        System.out.println(n);
+        }
     }
 }
