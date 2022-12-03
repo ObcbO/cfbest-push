@@ -3,9 +3,11 @@
  */
 package com.obcbo.cfbest;
 
+import java.util.List;
+
 public class App {
     public static void main(String[] args) {
-        for (String n : GetIP.get()) {
+        for (List<String> n : GetIP.get()) {
         System.out.println(n);
         }
     }
